@@ -1,0 +1,26 @@
+.male {
+  background-color: lightskyblue;
+  
+}
+.female{
+  background-color:pink;
+  
+}
+.ele{
+  border-radius: 5px;
+  padding:4px;
+  margin:5px;
+}
+
+.holder{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding:50px;
+  margin:50px;
+  border-top: 3px solid  lightskyblue;
+  border-left: 3px solid lightskyblue;
+  border-right: 3px solid  pink;
+  border-bottom: 3px solid pink;
+}
+
