@@ -18,10 +18,7 @@
   justify-content: center;
   padding:50px;
   margin:50px;
-  border-top: 3px solid  lightskyblue;
-  border-left: 3px solid lightskyblue;
-  border-right: 3px solid  pink;
-  border-bottom: 3px solid pink;
+  
 }
 .input-holder{
   margin:20px;

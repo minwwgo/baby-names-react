@@ -1,0 +1,9 @@
+.box-holder{
+  margin:50px;
+  border-top: 3px solid  lightskyblue;
+  border-left: 3px solid lightskyblue;
+  border-right: 3px solid  pink;
+  border-bottom: 3px solid pink;
+  background-color: lightyellow;
+  text-align: center;
+}
