@@ -3,66 +3,50 @@ import babyData from "./babyNamesData.json";
 import DisplayBabyName from "./DisplayBabyName";
 import InputData from "./InputData";
 import "./App.css";
-import DisplayGender from './DisplayGender'
+import DisplayGender from "./DisplayGender";
 function App() {
-  const [data, setData] = useState(babyData);
-  const [favName, setFavName] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [favNames, setFavNames] = useState([]);
+  const [selectedGender, setSelectedGender] = useState("both");
 
-  const handlerChange = (inputData) => {
-    const searchValue = inputData.toLowerCase();
-
-    const inputSearch = data.filter((baby) =>
-      baby.name.toLowerCase().includes(searchValue)
-    );
-    if (inputData.length > 0) {
-      return setData(inputSearch);
-    } else {
-      return setData(babyData);
-    }
-  };
   const handlePickName = (pickName) => {
-    
-    setFavName([...favName, pickName]);
-    setData(data.filter(baby=>baby !== pickName))
+    setFavNames([...favNames, pickName]);
   };
 
-  function handleRemoveName(pickName){
-    setFavName(favName.filter(baby=>baby !== pickName))
-    setData([...data,pickName])
+  function handleRemoveName(pickName) {
+    setFavNames(favNames.filter((baby) => baby !== pickName));
   }
-function handlePickGender(pickGender){
-  console.log(pickGender)
-  if(pickGender === "m" || pickGender ==="f"){
-    setData(data.filter(baby => baby.sex === pickGender ))
-
-  }
+  const filteredData = babyData
+    .sort((a, b) => (a.name > b.name ? 1 : -1))
+    .filter((baby) => selectedGender === "both" || baby.sex === selectedGender)
+    .filter((baby) =>baby.name.toLowerCase().includes(searchText.toLowerCase()))
+    .filter((baby) => !favNames.includes(baby));
     
-  
-}
-  data.sort((a, b) => (a.name > b.name ? 1 : -1));
-
   return (
     <div className="App">
-    <div className='box-holder'>
-    <InputData handlerChange={handlerChange} />
-      <div>
-        FavName:
-        {favName.length > 0 &&
-          favName.map((baby) => (
-            <span 
-          
-            className={baby.sex === "m" ? "ele male " : "ele female"}
-            onClick={()=>{handleRemoveName(baby)}}
-            >
-              {baby.name}
-            </span>
-          ))}
-      </div>
-      <DisplayBabyName data={data} handlePickName={handlePickName} />
-      <DisplayGender data={data} handlePickGender={handlePickGender}/ >
+      <div className="box-holder">
+        <InputData setSearchText={setSearchText} searchText={searchText} />
+        <DisplayGender
+          selectedGender={selectedGender}
+          setSelectedGender={setSelectedGender}
+        />
 
-    </div>
-      
+        <div>
+          FavName:
+          {favNames.length > 0 &&
+            favNames.map((baby) => (
+              <span
+                className={baby.sex === "m" ? "ele male " : "ele female"}
+                onClick={() => {
+                  handleRemoveName(baby);
+                }}
+              >
+                {baby.name}
+              </span>
+            ))}
+        </div>
+        <DisplayBabyName data={filteredData} handlePickName={handlePickName} />
+      </div>
     </div>
   );
 }

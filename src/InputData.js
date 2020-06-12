@@ -1,13 +1,14 @@
 import React from 'react'
 
-const InputData=({handlerChange})=>{
+const InputData=({searchText,setSearchText})=>{
 return(
     <div className="input-holder">
         <form>
           <input
             className="input"
             placeholder="search by"
-            onChange={(e) =>handlerChange(e.target.value)}
+            onChange={(e) =>setSearchText(e.target.value)}
+            value={searchText}
           />
         </form>
       </div>
